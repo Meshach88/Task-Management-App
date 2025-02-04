@@ -73,6 +73,18 @@ class TaskController extends Controller
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
 
+    public function storeComment(Request $request, Task $task)
+{
+    $request->validate(['comment' => 'required']);
+
+    $task->comments()->create([
+        'comment' => $request->comment,
+        // 'user_id' => auth()->id(),
+    ]);
+
+    return back();
+}
+
     public function destroy(Task $task)
     {
         $task->delete();
